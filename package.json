@@ -18,6 +18,9 @@
   "homepage": "https://github.com/OBA-HUB/Automation-API-Tests#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.4"
+    "@types/node": "^26.6.5"
+  },
+  "dependencies": {
+    "typescript": "^7.0.2"
   }
 }

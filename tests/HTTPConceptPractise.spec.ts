@@ -44,3 +44,55 @@ const response_del = await request.delete(
 expect(response_del.status()).toBe(404);
 await expect(response_del.text()).resolves.toContain('404 Not Found');
 });
+
+test('HTTP Basic Authentication', async ({ request }) => {
+  const auth_response = await request.get(
+    'https://httpbin.org/basic-auth/Oleksii/1234',
+    {
+      headers: {
+        Authorization:
+          'Basic ' +
+          Buffer.from('Oleksii:1234').toString('base64')
+      }
+    }
+  );
+  expect(auth_response.ok()).toBeTruthy();
+  const body = await auth_response.json();
+  expect(body.authenticated).toBe(true);
+  expect(body.user).toBe('Oleksii');
+});
+
+test('HTTP Bearer Authentication', async ({ request }) => {
+  const bearer_response = await request.get(
+    'https://httpbin.org/bearer',
+    {
+      headers: {
+        Authorization: 'Bearer abra-abra-cadabra' 
+      }
+    }
+  );
+  expect(bearer_response.ok()).toBeTruthy();
+  const body = await bearer_response.json();
+  expect(body.authenticated).toBe(true);
+  expect(body.token).toBe('abra-abra-cadabra');
+});
+
+test('Request inspection - headers', async({request})=>{
+  const reqInspectHeadersResult=await request.get('https://httpbin.org/headers');
+  expect(reqInspectHeadersResult.status()).toBe(200);
+  const result = await reqInspectHeadersResult.headers();
+  console.log(reqInspectHeadersResult);
+  expect(result).toHaveProperty('content-type');
+  expect(result['content-type']).toContain('application/json');
+  expect(result).toHaveProperty('content-length');
+  expect(result['content-length']).toContain('320');
+  expect(result).toHaveProperty('connection');
+  expect(result['connection']).toContain('keep-alive');
+  expect(result).toHaveProperty('server');
+  expect(result['server']).toContain('gunicorn/19.9.0');
+  expect(result).toHaveProperty('access-control-allow-origin');
+  expect(result['access-control-allow-origin']).toBe('*');
+  expect(result).toHaveProperty('access-control-allow-credentials');
+  expect(result['access-control-allow-credentials']).toBe('true');
+  expect(result['date']).toBeDefined();
+});
