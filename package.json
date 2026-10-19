@@ -11,14 +11,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/OBA-HUB/Automation-API-Tests/issues"
   },
   "homepage": "https://github.com/OBA-HUB/Automation-API-Tests#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.5"
+    "@types/node": "^26.6.5",
+    "dotenv": "^18.0.8"
   },
   "dependencies": {
     "typescript": "^7.0.2"
