@@ -77,7 +77,7 @@ test('Verify individual record', async ({ request }) => {
     console.log(data.data.id)
     });
 
-    test('Updaterecord', async ({ request }) => {
+    test('Update record', async ({ request }) => {
         const response = await request.get('https://reqres.in/api/collections/users/records?project_id=55312',
         {
             headers: {
@@ -121,4 +121,32 @@ test('Verify individual record', async ({ request }) => {
         expect(data.data.data.isActive).toBe(updatedUser.isActive);
         expect(data.data.data.lastName).toBe(updatedUser.lastName);
         expect(data.data.data.firstName).toBe(updatedUser.firstName);
+    });
+
+    test('Delete all records', async ({ request }) => {
+    const response = await request.get(
+  'https://reqres.in/api/collections/users/records?project_id=55312',
+  {
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+      'X-Reqres-Env': 'prod',
+    },
+  }
+);
+
+const data = await response.json();
+const records = data.data;
+// console.log(records);
+
+for (const item of records) {
+    const response2 = await request.delete(`https://reqres.in/api/collections/users/records/${item.id}?project_id=55312`,
+    {
+        headers: {
+            'x-api-key': process.env.API_KEY!,
+            'X-Reqres-Env': 'prod',
+        },
+    }
+    );
+    expect(response2.status()).toBe(204);
+}
     });
