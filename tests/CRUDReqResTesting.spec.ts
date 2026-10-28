@@ -5,8 +5,6 @@ dotenv.config();
 test.describe.configure({ mode: 'serial' });
 
 test('Create new user in real DB and verify response', async ({ request }) => {
-    // console.log('API_KEY:', process.env.API_KEY);
-    // console.log('API_KEY exists:', !!process.env.API_KEY);
     for (let i = 0; i < 20; i++) { 
     const user={
         "role": `QAE${i}`,
