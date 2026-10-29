@@ -1,7 +1,7 @@
 import { test, expect, request,} from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config();
-import { getAuthToken } from './helpers/authHelper.js';
+import { getAuthToken } from '../helpers/authHelper.js';
 
 test('Get full current list of available books', async ({request}) => {
     const listOfBooks = await request.get('https://restful-booker.herokuapp.com/booking');
