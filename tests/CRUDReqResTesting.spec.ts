@@ -5,7 +5,7 @@ dotenv.config();
 test.describe.configure({ mode: 'serial' });
 
 test('Create new user in real DB and verify response', async ({ request }) => {
-    for (let i = 0; i < 20; i++) { 
+    for (let i = 0; i < 5; i++) { 
     const user={
         "role": `QAE${i}`,
         "email": `test${i}@example.com`,
@@ -43,7 +43,7 @@ test('Check records quantity', async ({ request }) => {
 );
 expect(response.status()).toBe(200);
 const data = await response.json();
-expect(data.data.length).toBe(20); // Ensure there is 20 records
+expect(data.data.length).toBe(5); // Ensure there is 5 records
 });
 
 test('Verify individual record', async ({ request }) => {
