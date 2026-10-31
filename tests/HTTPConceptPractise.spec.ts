@@ -1,4 +1,5 @@
 import { test, expect, request,} from '@playwright/test';
+import { Person } from '../factories/HTTPConceptPractisePersons.js';
 
 test('GET request', async ({ request }) => {
 const response = await request.get('https://httpbin.org/get');
@@ -20,9 +21,7 @@ test('GET non-existig data', async ({request}) => {
 
 test('POST new data request', async ({ request }) => {
   const response_post = await request.post('https://httpbin.org/post', {
-    data: { person1: 'Tester1', 
-            person2: 'Tester2',
-            person3: 'Tester3'},
+    data: Person.createPerson(),
 });
   expect(response_post.status()).toBe(200);
   const result_post = await response_post.json();
@@ -33,7 +32,7 @@ test('POST new data request', async ({ request }) => {
   expect(result_post).toHaveProperty('data');
   expect(result_post).toHaveProperty('json');
   expect(result_post.url).toBe('https://httpbin.org/post');
-  expect(result_post.data).toBe(JSON.stringify({ person1: 'Tester1', person2: 'Tester2', person3: 'Tester3' }));
+  expect(result_post.data).toBe(JSON.stringify(Person.createPerson()));
   console.log(result_post);
 });
 

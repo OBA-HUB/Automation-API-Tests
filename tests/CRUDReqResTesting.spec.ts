@@ -3,32 +3,24 @@ import { randomUUID } from 'crypto';
 import dotenv from 'dotenv';
 dotenv.config();
 test.describe.configure({ mode: 'serial' });
+import { Users } from '../factories/usersCreation.js';
 
 test('Create new user in real DB and verify response', async ({ request }) => {
     for (let i = 0; i < 5; i++) { 
-    const user={
-        "role": `QAE${i}`,
-        "email": `test${i}@example.com`,
-        "phone": `+38097123456${i}`,
-        "isActive": true,
-        "lastName": `TestQA${i}`,
-        "firstName": `Test${i}`,    
-    };
-  const response = await request.post('https://reqres.in/api/collections/users/records?project_id=55312',
+    const user=Users.createUser(i);
+    const response = await request.post('https://reqres.in/api/collections/users/records?project_id=55312',
   {
     headers: {
         'x-api-key': process.env.API_KEY!,
         'X-Reqres-Env': 'prod',
         'Content-Type': 'application/json',
     },
-     data: {
-        data:user
-        }
+    data:{data:user},
     }
 );
   expect(response.status()).toBe(201);
   const responseBody = await response.json();
-//   console.log(responseBody);
+  console.log(responseBody);
     }
 });
 
