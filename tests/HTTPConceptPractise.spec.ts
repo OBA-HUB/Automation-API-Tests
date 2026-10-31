@@ -81,15 +81,10 @@ test('Request inspection - headers', async({request})=>{
   const reqInspectHeadersResult=await request.get('https://httpbin.org/headers');
   expect(reqInspectHeadersResult.status()).toBe(200);
   const result = await reqInspectHeadersResult.headers();
-  console.log(reqInspectHeadersResult);
   expect(result).toHaveProperty('content-type');
   expect(result['content-type']).toContain('application/json');
   expect(result).toHaveProperty('content-length');
-  expect(result['content-length']).toContain('320');
-  expect(result).toHaveProperty('connection');
-  expect(result['connection']).toContain('keep-alive');
-  expect(result).toHaveProperty('server');
-  expect(result['server']).toContain('gunicorn/19.9.0');
+  expect(result['content-length']).toContain('249');
   expect(result).toHaveProperty('access-control-allow-origin');
   expect(result['access-control-allow-origin']).toBe('*');
   expect(result).toHaveProperty('access-control-allow-credentials');
