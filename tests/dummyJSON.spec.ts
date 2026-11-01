@@ -11,3 +11,4 @@ test('GET dummy JSON data', async ({ request }) => {
   console.log('for Cooking `' + result.recipes[recipeId]?.name + '` you will need the following ingredients:', result.recipes[recipeId]?.ingredients);
   console.log('Follow instructions:', result.recipes[recipeId]?.instructions);
 });
+
